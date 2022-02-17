@@ -2,11 +2,55 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8">
-    <title>test</title>
+    <title>ピアコ検索</title>
   </head>
   <body>
-    <h1>Hello World</h1>
-    <div id="test"></div>
-    <script src="./main.js"></script>
+    <h1>ピアコ検索</h1>
+    <div id="select">
+      <h2>入力</h2>
+      <div class="whitekey">
+        <label><input type="checkbox" id="onKeyC">C</label>
+      </div>
+      <div class="blackkey">
+        <label><input type="checkbox" id="onKeyDb">C#</label>
+      </div>
+      <div class="whitekey">
+        <label><input type="checkbox" id="onKeyD">D</label>
+      </div>
+      <div class="blackkey">
+        <label><input type="checkbox" id="onKeyEb">D#</label>
+      </div>
+      <div class="whitekey">
+        <label><input type="checkbox" id="onKeyE">E</label>
+      </div>
+      <div class="whitekey">
+        <label><input type="checkbox" id="onKeyF">F</label>
+      </div>
+      <div class="blackkey">
+        <label><input type="checkbox" id="onKeyGb">F#</label>
+      </div>
+      <div class="whitekey">
+        <label><input type="checkbox" id="onKeyG">G</label>
+      </div>
+      <div class="blackkey">
+        <label><input type="checkbox" id="onKeyAb">G#</label>
+      </div>
+      <div class="whitekey">
+        <label><input type="checkbox" id="onKeyA">A</label>
+      </div>
+      <div class="blackkey">
+        <label><input type="checkbox" id="onKeyBb">A#</label>
+      </div>
+      <div class="whitekey">
+        <label><input type="checkbox" id="onKeyB">B</label>
+      </div>
+      <button id="searchButton">検索</button>
+    </div>
+    <div id="answer">
+      <h2>出力</h2>
+      <ul id="result"></ul>
+      <ul id="nearresult"></ul>
+    </div>
+    <script src="./pianochord.js"></script>
   </body>
 </html>
