@@ -21,7 +21,7 @@ const CHORDNAME = [{name:"",           tones:[0, 4,  7    ]},
             ];
 const TONES = [['C', 'C'], ['C♯', 'D♭'], ['D', 'D'], ['D♯', 'E♭'], ['E', 'E'], ['F', 'F'],
          ['F♯', 'G♭'], ['G', 'G'], ['G♯', 'A♭'], ['A', 'A'], ['A♯', 'B♭'], ['B', 'B']];
-let okTone = [true,false,true,false,true,true,false,true,false,true,false,true];
+let okTone = [true,true,true,true,true,true,true,true,true,true,true,true];
 let onFlat = 0; // 表記を♯にするか♭にするか 1なら♭
 
 // onlist: どの音を含みたいか boolean型の12個の配列
