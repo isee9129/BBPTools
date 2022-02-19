@@ -7,47 +7,42 @@
   <body>
     <h1>ピアコ検索</h1>
     <div id="select">
-      <h2>入力</h2>
-      <div class="whitekey">
+      <h3>構成音</h3>
+      <div class="onKey">
         <label><input type="checkbox" id="onKeyC">C</label>
-      </div>
-      <div class="blackkey">
         <label><input type="checkbox" id="onKeyDb">C#</label>
-      </div>
-      <div class="whitekey">
         <label><input type="checkbox" id="onKeyD">D</label>
-      </div>
-      <div class="blackkey">
         <label><input type="checkbox" id="onKeyEb">D#</label>
-      </div>
-      <div class="whitekey">
         <label><input type="checkbox" id="onKeyE">E</label>
-      </div>
-      <div class="whitekey">
         <label><input type="checkbox" id="onKeyF">F</label>
-      </div>
-      <div class="blackkey">
         <label><input type="checkbox" id="onKeyGb">F#</label>
-      </div>
-      <div class="whitekey">
         <label><input type="checkbox" id="onKeyG">G</label>
-      </div>
-      <div class="blackkey">
         <label><input type="checkbox" id="onKeyAb">G#</label>
-      </div>
-      <div class="whitekey">
         <label><input type="checkbox" id="onKeyA">A</label>
-      </div>
-      <div class="blackkey">
         <label><input type="checkbox" id="onKeyBb">A#</label>
-      </div>
-      <div class="whitekey">
         <label><input type="checkbox" id="onKeyB">B</label>
       </div>
-      <button id="searchButton">検索</button>
+      <h4>近いコードに含んでもいい音(いい表現思いつかん)</h4>
+      <div class="okKey">
+        <label><input type="checkbox" id="okKeyC">C</label>
+        <label><input type="checkbox" id="okKeyDb">C#</label>
+        <label><input type="checkbox" id="okKeyD">D</label>
+        <label><input type="checkbox" id="okKeyEb">D#</label>
+        <label><input type="checkbox" id="okKeyE">E</label>
+        <label><input type="checkbox" id="okKeyF">F</label>
+        <label><input type="checkbox" id="okKeyGb">F#</label>
+        <label><input type="checkbox" id="okKeyG">G</label>
+        <label><input type="checkbox" id="okKeyAb">G#</label>
+        <label><input type="checkbox" id="okKeyA">A</label>
+        <label><input type="checkbox" id="okKeyBb">A#</label>
+        <label><input type="checkbox" id="okKeyB">B</label>
+      </div>
+      <h4>記号</h4>
+      <label><input type="radio" id="sharp" name="acci">♯</label>
+      <label><input type="radio" id="flat" name="acci">♭</label>
+      <!-- <button id="searchButton">検索</button> -->
     </div>
     <div id="answer">
-      <h2>出力</h2>
       <h3>一致するコード</h3>
       <ul id="result"></ul>
       <h3>近いコード</h3>

@@ -21,12 +21,11 @@ const CHORDNAME = [{name:"",           tones:[0, 4,  7    ]},
             ];
 const TONES = [['C', 'C'], ['C♯', 'D♭'], ['D', 'D'], ['D♯', 'E♭'], ['E', 'E'], ['F', 'F'],
          ['F♯', 'G♭'], ['G', 'G'], ['G♯', 'A♭'], ['A', 'A'], ['A♯', 'B♭'], ['B', 'B']];
-let okTone = [true,true,true,true,true,true,true,true,true,true,true,true];
 let onFlat = 0; // 表記を♯にするか♭にするか 1なら♭
 
 // onlist: どの音を含みたいか boolean型の12個の配列
 // 返り値: [ok:完全一致するコードリスト, near:部分一致するコードリスト]
-function search(onlist){
+function search(onlist, okTone){
   let tonecount = 0; // 構成音の数
   for(let no = 0; no < onlist.length; no++){
     if(onlist[no]){
@@ -83,11 +82,16 @@ function chord2Html(chord, isok){
 }
 
 function update(){
+  updateAcci();
   let inputTone = [];
-  for(let cb of checkboxes){
+  for(let cb of onKeybox){
     inputTone.push(cb.checked);
   }
-  const result = search(inputTone);
+  let inputOkTone = [];
+  for(let cb of okKeybox){
+    inputOkTone.push(cb.checked);
+  }
+  const result = search(inputTone, inputOkTone);
 
   let resultHtml = '';
   for(let idx = 0; idx < result.ok.length; idx++){
@@ -104,14 +108,35 @@ function update(){
   nearElm.innerHTML = nearHtml;
 }
 
-let checkboxes = [];
-const ids = ["onKeyC","onKeyDb","onKeyD","onKeyEb","onKeyE","onKeyF","onKeyGb","onKeyG","onKeyAb","onKeyA","onKeyBb","onKeyB"];
-for(let i of ids){
-  const cb = document.getElementById(i);
-  checkboxes.push(cb);
+function updateAcci(){
+  if(acciElm.checked){
+    onFlat = 1;
+  }else{
+    onFlat = 0;
+  }
 }
 
-const searchButton = document.getElementById('searchButton');
-searchButton.addEventListener('click', () => {
-  update()
-});
+let onKeybox = [];
+const onids = ["onKeyC","onKeyDb","onKeyD","onKeyEb","onKeyE","onKeyF","onKeyGb","onKeyG","onKeyAb","onKeyA","onKeyBb","onKeyB"];
+for(let i of onids){
+  const cb = document.getElementById(i);
+  cb.addEventListener('click', update);
+  onKeybox.push(cb);
+}
+
+let okKeybox = [];
+const okids = ["okKeyC","okKeyDb","okKeyD","okKeyEb","okKeyE","okKeyF","okKeyGb","okKeyG","okKeyAb","okKeyA","okKeyBb","okKeyB"];
+for(let i of okids){
+  const cb = document.getElementById(i);
+  cb.addEventListener('click', update);
+  okKeybox.push(cb);
+}
+
+let acciButton = [];
+const acciids = ["sharp", "flat"];
+for(let i of acciids){
+  const cb = document.getElementById(i);
+  cb.addEventListener('click', update);
+  acciButton.push(cb);
+}
+let acciElm = document.getElementsByName("acci")[1];
