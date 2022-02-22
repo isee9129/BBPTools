@@ -142,9 +142,11 @@ function updateAcci(){
 
 // 調の設定
 function setOkKey(){
-  cholist = [false,false,false,false,false,false,false,false,false,false,false,false]
+  let cholist = [false,false,false,false,false,false,false,false,false,false,false,false]
   let num = keySelector.value;
-  if(num !== 'mu'){
+  if(num === 'all'){
+    cholist = [true,true,true,true,true,true,true,true,true,true,true,true]
+  }else if(num !== 'mu'){
     num = parseInt(num);
 
     Cmaj = [0,2,4,5,7,9,11]
