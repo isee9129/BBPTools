@@ -87,9 +87,9 @@ function chord2Html(chord, isok){
       chordHtml += '<td></td>';
     }else{
       if(chord.isfit[idx]){
-        chordHtml += `<td class="fittone">${chord.tones[idx]}</td>`;
+        chordHtml += `<td class="best">${chord.tones[idx]}</td>`;
       }else{
-        chordHtml += `<td class="othertone">${chord.tones[idx]}</td>`;
+        chordHtml += `<td class="ng">${chord.tones[idx]}</td>`;
       }
     }
   }
