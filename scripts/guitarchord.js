@@ -23,12 +23,15 @@ const inputElm = document.getElementById('tones');
 for(let oct = 1; oct <= 7; oct++){
   const octElm = document.createElement('div');
   octElm.className = 'inputRow';
-  octElm.innerText = oct + ' :';
+  const octlabel = document.createElement('label');
+  octlabel.innerText = oct;
+  octlabel.className = 'oct'
+  octElm.appendChild(octlabel);
   for(let key = 0; key < 12; key++){
     const no = (oct - 1) * 12 + key;
     // ラベル
     const labelElm = document.createElement('label');
-    labelElm.className = 'onKey' + key;
+    labelElm.className = 'onKey';
     if(no <= 27 || no >= 67){
       labelElm.className += ' outTone';
     }else{

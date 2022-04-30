@@ -1,6 +1,29 @@
+html{
+ overflow-y: scroll;
+}
+
+body{
+  width: 720px;
+  margin: 0 auto;
+}
+
+h1{
+  text-align: center;
+}
+
 /* フォント設定 */
 label, td{
   font-family: 'Kosugi Maru', sans-serif;
+}
+
+fieldset{
+  width: 100%;
+  margin: 20px 0 5px;
+  /* text-align: center; */
+}
+
+legend{
+  font-weight: bold;
 }
 
 /* 行の高さ設定 */
@@ -20,36 +43,43 @@ label, td{
   display: block; /* ブロックレベル要素化 */
   float: left; /* 要素の左寄せ・回り込み */
   margin: 2px; /* ラベル外側の余白 */
-  width: 47px; /* ラベルの横幅 */
+  width: 46px; /* ラベルの横幅 */
   height: 44px; /* ラベルの高さ */
   text-align: center; /* テキストのセンタリング */
   line-height: 45px; /* 行の高さ */
+}
+.inputRow label.oct{
+  line-height: 49px; /* 行の高さ */
+}
+.inputRow label.onKey{
   cursor: pointer; /* マウスカーソルの形（リンクカーソル） */
-  border: 2px solid #006DD9;/* ラベルの境界線を実線で */
   border-radius: 5px; /* 角丸 */
 }
 
 /* 黒鍵or白鍵 音域内外 で色を変える */
+.inputRow label.outTone{
+  border: 2px solid rgb(71, 0, 0);/* ラベルの境界線を実線で */
+}
+.inputRow label.inTone{
+  border: 2px solid rgb(26, 84, 0);/* ラベルの境界線を実線で */
+}
+.inputRow label.blackTone{
+  color: rgb(255, 255, 255);
+}
+.inputRow label.whiteTone{
+  color: rgb(0, 0, 0);
+}
 .inputRow label.outTone.whiteTone{  /* 範囲外・白 */
   background-color: rgb(160, 160, 160);
-  color: rgb(0, 0, 0);
 }
 .inputRow label.outTone.blackTone{  /* 範囲外・黒 */
   background-color: rgb(96, 96, 96);
-  color: rgb(255, 255, 255);
 }
 .inputRow label.inTone.whiteTone{  /* 範囲内・白 */
   background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
 }
 .inputRow label.inTone.blackTone{  /* 範囲内・黒 */
   background-color: rgb(0, 0, 0);
-  color: rgb(255, 255, 255);
-}
-
-/* マウスON時の挙動 */
-.inputRow label:hover {
-  background-color: #E2EDF9; /* マウスオーバー時の背景色 */
 }
 
 /* 選択されてるときの挙動 */
@@ -58,21 +88,45 @@ label, td{
   color: rgb(0, 0, 0);  /* ON時の文字色 */
 }
 
+/* マウスON時の挙動 */
+.inputRow label.onKey:hover {
+  background-color: #E2EDF9; /* マウスオーバー時の背景色 */
+  color: rgb(0, 0, 0);
+}
+
 /* チェックボックスまわりの設定 ここまで */
 
+/* テーブルまわりの設定 ここから */
+
+/* タイトル */
+caption{
+  font-size: large;
+  font-weight: bold;
+  margin: 20px auto 5px;
+}
+
+/* 本体 */
+table{
+  width: 100%;
+  text-align: center;
+}
+
+/* 行 */
 tr{
   outline: rgb(3, 175, 122) solid 1px;
-  margin: 10px;
 }
 
-.fittone{
-  background-color: rgb(255, 255, 128);
+/* ます */
+th, td{
+  padding: 5px;
 }
 
+/* オク違い */
 .good{
   background-color: rgb(255, 255, 128);
 }
 
+/* 一致 */
 .best{
   background-color: rgb(216, 242, 85);
 }
