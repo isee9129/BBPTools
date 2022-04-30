@@ -1,9 +1,68 @@
+/* フォント設定 */
 label, td{
   font-family: 'Kosugi Maru', sans-serif;
 }
 
+/* 行の高さ設定 */
+.inputRow{
+  height: 60px; /* ラベルの高さを指定する */
+}
+
+/* チェックボックスまわりの設定 ここから */
+
+/* チェックボックス非表示 */
+.inputRow input[type=checkbox]{
+  display: none;
+}
+
+/* ラベルの共通書式設定 */
+.inputRow label {
+  display: block; /* ブロックレベル要素化 */
+  float: left; /* 要素の左寄せ・回り込み */
+  margin: 2px; /* ラベル外側の余白 */
+  width: 47px; /* ラベルの横幅 */
+  height: 44px; /* ラベルの高さ */
+  text-align: center; /* テキストのセンタリング */
+  line-height: 45px; /* 行の高さ */
+  cursor: pointer; /* マウスカーソルの形（リンクカーソル） */
+  border: 2px solid #006DD9;/* ラベルの境界線を実線で */
+  border-radius: 5px; /* 角丸 */
+}
+
+/* 黒鍵or白鍵 音域内外 で色を変える */
+.inputRow label.outTone.whiteTone{  /* 範囲外・白 */
+  background-color: rgb(160, 160, 160);
+  color: rgb(0, 0, 0);
+}
+.inputRow label.outTone.blackTone{  /* 範囲外・黒 */
+  background-color: rgb(96, 96, 96);
+  color: rgb(255, 255, 255);
+}
+.inputRow label.inTone.whiteTone{  /* 範囲内・白 */
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+.inputRow label.inTone.blackTone{  /* 範囲内・黒 */
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+/* マウスON時の挙動 */
+.inputRow label:hover {
+  background-color: #E2EDF9; /* マウスオーバー時の背景色 */
+}
+
+/* 選択されてるときの挙動 */
+.inputRow input[type=checkbox]:checked + label {
+  background-color: rgb(255, 255, 128); /* ON時の背景色 */
+  color: rgb(0, 0, 0);  /* ON時の文字色 */
+}
+
+/* チェックボックスまわりの設定 ここまで */
+
 tr{
   outline: rgb(3, 175, 122) solid 1px;
+  margin: 10px;
 }
 
 .fittone{

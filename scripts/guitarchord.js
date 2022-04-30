@@ -22,24 +22,36 @@ request.onload = function() {
 const inputElm = document.getElementById('tones');
 for(let oct = 1; oct <= 7; oct++){
   const octElm = document.createElement('div');
+  octElm.className = 'inputRow';
   octElm.innerText = oct + ' :';
   for(let key = 0; key < 12; key++){
     const no = (oct - 1) * 12 + key;
     // ラベル
     const labelElm = document.createElement('label');
-    labelElm.class = 'onKey' + TONES[key][0];
-    labelElm.innerText = '　' + TONES[key][0];
+    labelElm.className = 'onKey' + key;
+    if(no <= 27 || no >= 67){
+      labelElm.className += ' outTone';
+    }else{
+      labelElm.className += ' inTone';
+    }
+    if(key == 1 || key == 3 || key == 6 || key == 8 || key == 10 ){
+      labelElm.className += ' blackTone';
+    }else{
+      labelElm.className += ' whiteTone';
+    }
+    labelElm.innerText = TONES[key][0];
+    labelElm.htmlFor = no;
     labels.push(labelElm);
     // チェックボックス
     const inputElm = document.createElement('input');
     inputElm.type = 'checkbox';
     inputElm.id = no;
-    inputElm.class = 'onKeyBox' + + TONES[key][0];
+    inputElm.className = 'onKeyBox' + key;
     inputElm.checked = false;
     inputElm.addEventListener('click', update);
     checkboxes.push(inputElm);
     // 追加！
-    labelElm.appendChild(inputElm);
+    octElm.appendChild(inputElm);
     octElm.appendChild(labelElm);
   }
   inputElm.appendChild(octElm);
@@ -73,8 +85,8 @@ function update(){
     onFlat = 0;
   }
   for(let i = 0; i < 84; i++){
-    labels[i].innerText = '　' + TONES[i%12][onFlat];
-    labels[i].appendChild(checkboxes[i]); // なんでこれやらなあかんの
+    labels[i].innerText = TONES[i%12][onFlat];
+    // labels[i].appendChild(checkboxes[i]); // なんでこれやらなあかんの
   }
   // ギタコ検索
   // ONな音を取得
@@ -203,3 +215,5 @@ function drawResult(chord, elem, capt){
 function toneNum2Name(tonenum){
   return `${TONES[tonenum % 12][onFlat]}${Math.floor(tonenum / 12) + 3}`
 }
+
+update()
