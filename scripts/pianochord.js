@@ -1,22 +1,22 @@
 const CHORDNAME = [{name:"",           tones:[0, 4,  7    ]},
              {name:"m",          tones:[0, 3,  7    ]},
-             {name:"7(3音)",     tones:[0, 4, 10    ]},
+             {name:"7 (3音)",     tones:[0, 4, 10    ]},
              {name:"7",          tones:[0, 4,  7, 10]},
-             {name:"M7(3音)",    tones:[0, 4, 11    ]},
+             {name:"M7 (3音)",    tones:[0, 4, 11    ]},
              {name:"M7",         tones:[0, 4,  7, 11]},
-             {name:"m7(3音)",    tones:[0, 3, 10    ]},
+             {name:"m7 (3音)",    tones:[0, 3, 10    ]},
              {name:"m7",         tones:[0, 3,  7, 10]},
-             {name:"dim7(3音)",  tones:[3, 6,  9    ]},
+             {name:"dim7 (3音)",  tones:[3, 6,  9    ]},
              {name:"dim7",       tones:[0, 3,  6,  9]},
-             {name:"m7♭5(3音)",  tones:[3, 6, 10    ]},
+             {name:"m7♭5 (3音)",  tones:[3, 6, 10    ]},
              {name:"m7♭5",       tones:[0, 3,  6, 10]},
              {name:"aug",        tones:[0, 4,  8    ]},
              {name:"sus4",       tones:[0, 5,  7    ]},
-             {name:"7sus4(3音)", tones:[0, 5, 10    ]},
+             {name:"7sus4 (3音)", tones:[0, 5, 10    ]},
              {name:"7sus4",      tones:[0, 5,  7, 10]},
-             {name:"6(3音)",     tones:[4, 7,  9    ]},
+             {name:"6 (3音)",     tones:[4, 7,  9    ]},
              {name:"6",          tones:[0, 4,  7,  9]},
-             {name:"add9(3音)",  tones:[2, 4,  7    ]},
+             {name:"add9 (3音)",  tones:[2, 4,  7    ]},
              {name:"add9",       tones:[0, 2,  4,  7]}
             ];
 const TONES = [['Ｃ', 'Ｃ'], ['Ｃ♯', 'Ｄ♭'], ['Ｄ', 'Ｄ'], ['Ｄ♯', 'Ｅ♭'],
@@ -62,6 +62,8 @@ for(let oct = 1; oct <= 1; oct++){
   }
   oninputElm.appendChild(octElm);
 }
+const resetButton = document.getElementById('resetToneButton');
+resetButton.addEventListener('click', resetTone);
 
 // 含んでもいい音
 const okinputElm = document.getElementById('oktones');
@@ -170,7 +172,7 @@ function update(){
 // in: onlist: どの音を含みたいか boolean型の12個の配列
 //     okTone: 含んでもいいやつ
 // out: [ok:[完全一致するコード], near:[部分一致するコード]]
-//      各コードは {name:コード名, tones:[構成音], fittone:[一致してる音]}
+//      各コードは {name:[ルート,コード名], tones:[構成音], fittone:[一致してる音]}
 function searchChord(onlist, okTone){
   let tonecount = 0; // 構成音の数
   for(let no = 0; no < onlist.length; no++){
@@ -182,7 +184,8 @@ function searchChord(onlist, okTone){
   let nearlist = []; // 部分一致 + 残りがOK音なコードリスト
   for(let root = 0; root < TONES.length; root++){
     for(let chord = 0; chord < CHORDNAME.length; chord++){
-      const chname = TONES[root][onFlat] + CHORDNAME[chord].name;
+      const chroot = TONES[root][onFlat];
+      const chname = CHORDNAME[chord].name;
       const chtone = CHORDNAME[chord].tones;
       const chtonename = [];
       const isfittone = [];
@@ -209,9 +212,9 @@ function searchChord(onlist, okTone){
           isfittone.push(false);
         }
         if(nearcount !== 0 || fitcount !== tonecount){
-          nearlist.push({'name':chname, 'tones':chtonename, 'isfit':isfittone});
+          nearlist.push({'name':[chroot,chname], 'tones':chtonename, 'isfit':isfittone});
         }else{
-          oklist.push({'name':chname, 'tones':chtonename, 'isfit':isfittone})
+          oklist.push({'name':[chroot,chname], 'tones':chtonename, 'isfit':isfittone})
         }
       }
     }
@@ -232,6 +235,7 @@ function drawResult(chord, elem, capt){
   const header = document.createElement('tr');
 
   const header_name = document.createElement('th');
+  header_name.setAttribute('colspan', '2');
   header_name.innerText = 'コード名';
   header_name.className = 'chordname';
   header.appendChild(header_name);
@@ -251,9 +255,13 @@ function drawResult(chord, elem, capt){
     const c = chord[i]
     const row = document.createElement('tr');
 
+    const row_root = document.createElement('td');
+    row_root.className = 'chordroot';
+    row_root.innerText = c['name'][0];
+    row.appendChild(row_root);
     const row_name = document.createElement('td');
     row_name.className = 'chordname';
-    row_name.innerText = c['name'];
+    row_name.innerText = c['name'][1];
     row.appendChild(row_name);
     // const row_no = document.createElement('td');
     // row_no.className = 'chordno';
@@ -293,6 +301,14 @@ function setOkKey(){
   }
   for(let i = 0; i < 12; i++){
     okcheckboxes[i].checked = cholist[i];
+  }
+  update();
+}
+
+// リセットボタン
+function resetTone(){
+  for(let i = 0; i < oncheckboxes.length; i++){
+    oncheckboxes[i].checked = false;
   }
   update();
 }

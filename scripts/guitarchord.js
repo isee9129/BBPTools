@@ -59,6 +59,8 @@ for(let oct = 1; oct <= 7; oct++){
   }
   inputElm.appendChild(octElm);
 }
+const resetButton = document.getElementById('resetToneButton');
+resetButton.addEventListener('click', resetTone);
 
 // 調号更新用
 let acciButton = [];
@@ -109,7 +111,7 @@ function update(){
 // いい感じのコードを検索
 // in: 音階の配列
 // out: {'best':[完全一致するコード], 'good':[構成音は合ってるコード]}
-//      各コードは {name:コード名, no:番号, tone:[構成音], dle:[一致度]}
+//      各コードは {name:[ルート,コード名], no:番号, tone:[構成音], dle:[一致度]}
 //      一致度: 0:不一致, 1:オク違い, 2:一致
 function searchChord(onTone){
   let res = {'best':[], 'good':[]};
@@ -134,7 +136,7 @@ function searchChord(onTone){
           }
         }
         if(count === onTone.length){
-          res['best'].push({'name':`${TONES[root][onFlat]}${name}`, 'no':1 + parseInt(chordNo),
+          res['best'].push({'name':[TONES[root][onFlat],name], 'no':1 + parseInt(chordNo),
                        'tone':tones, 'dle':dle});
           continue;
         }
@@ -150,7 +152,7 @@ function searchChord(onTone){
           }
         }
         if(count === onTone.length){
-          res['good'].push({'name':`${TONES[root][onFlat]}${name}`, 'no':1 + parseInt(chordNo),
+          res['good'].push({'name':[TONES[root][onFlat],name], 'no':1 + parseInt(chordNo),
                        'tone':tones, 'dle':dle});
           continue;
         }
@@ -171,6 +173,7 @@ function drawResult(chord, elem, capt){
 
   const header_name = document.createElement('th');
   header_name.innerText = 'コード名';
+  header_name.setAttribute('colspan', '2');
   header_name.className = 'chordname';
   header.appendChild(header_name);
   const header_no = document.createElement('th');
@@ -190,9 +193,13 @@ function drawResult(chord, elem, capt){
     const c = chord[i]
     const row = document.createElement('tr');
 
+    const row_root = document.createElement('td');
+    row_root.className = 'chordroot';
+    row_root.innerText = c['name'][0];
+    row.appendChild(row_root);
     const row_name = document.createElement('td');
     row_name.className = 'chordname';
-    row_name.innerText = c['name'];
+    row_name.innerText = c['name'][1];
     row.appendChild(row_name);
     const row_no = document.createElement('td');
     row_no.className = 'chordno';
@@ -220,6 +227,14 @@ function drawResult(chord, elem, capt){
 // 音階の数値を国際表記に直す
 function toneNum2Name(tonenum){
   return `${TONES[tonenum % 12][onFlat]}${Math.floor(tonenum / 12) + 3}`
+}
+
+// リセットボタン
+function resetTone(){
+  for(let i = 0; i < checkboxes.length; i++){
+    checkboxes[i].checked = false;
+  }
+  update();
 }
 
 update()

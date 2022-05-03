@@ -4,30 +4,7 @@
   --outTone-bordercolor: rgb(71, 0, 0);
 }
 
-/* @media (min-width: 600px){
-  :root {
-    --main-width: 600px;
-  }
-}
-
-@media (min-width: 700px){
-  :root {
-    --main-width: 700px;
-  }
-}
-
-@media (min-width: 800px){
-  :root {
-    --main-width: 800px;
-  }
-}
-
-@media (min-width: 900px){
-  :root {
-    --main-width: 900px;
-  }
-} */
-
+/* 最大幅 */
 @media (min-width: 1110px){
   :root {
     --main-width: 999px;
@@ -41,6 +18,8 @@ html{
 body{
   width: var(--main-width);
   margin: 0 auto;
+  font-size: calc(var(--main-width) * 0.02);
+  text-align: center;
 }
 
 h1{
@@ -53,6 +32,7 @@ label, td{
   font-family: 'Kosugi Maru', sans-serif;
 }
 
+/* 入力エリア設定 ここから */
 fieldset{
   width: calc(98% - 2px);
   border: calc(var(--main-width) * 0.001) solid;
@@ -131,17 +111,12 @@ legend{
   background-color: rgb(255, 255, 128); /* ON時の背景色 */
   color: rgb(0, 0, 0);  /* ON時の文字色 */
 }
-.inputRow input[type=checkbox]:checked + label .blacktone{
-  background-color: rgb(128, 128, 0); /* ON時の背景色 */
-  color: rgb(255, 255, 255);  /* ON時の文字色 */
-}
 
 /* マウスON時の挙動 */
 .inputRow label.onKey:hover {
   background-color: #E2EDF9; /* マウスオーバー時の背景色 */
   color: rgb(0, 0, 0);
 }
-
 /* チェックボックスまわりの設定 ここまで */
 
 /* 臨時記号まわりの設定 ここから */
@@ -153,6 +128,11 @@ legend{
   width: calc(var(--main-width) * 0.020);
   height: calc(var(--main-width) * 0.020);
 }
+
+select, button{
+  font-size: calc(var(--main-width) * 0.018);
+}
+/* 調号まわりの設定 ここまで */
 
 /* テーブルまわりの設定 ここから */
 
@@ -181,7 +161,7 @@ th, td{
 }
 
 th.chordname{
-  width: calc(var(--main-width) * 0.2);
+  width: calc(var(--main-width) * 0.25);
 }
 th.chordno{
   width: calc(var(--main-width) * 0.1);
@@ -190,12 +170,42 @@ th.chordtones{
   width: calc(var(--main-width) * 0.5);
 }
 
-/* オク違い */
-.good{
-  background-color: rgb(255, 255, 128);
+td.chordroot{
+  text-align: right;
+    width: calc(var(--main-width) * 0.12);
 }
+td.chordname{
+  text-align: left;
+    width: calc(var(--main-width) * 0.13);
+}
+
 
 /* 一致 */
 .best{
   background-color: rgb(216, 242, 85);
+}
+
+/* オク違い */
+.good{
+  background-color: rgb(255, 255, 128);
+}
+/* テーブルまわりの設定 ここまで */
+
+/* フッター */
+#footer{
+  font-size: calc(var(--main-width) * 0.015)
+}
+
+#links{
+  display: flex;
+  justify-content: center; /*左右中央揃え*/
+  align-items: center;     /*上下中央揃え*/
+  margin: 0.5% auto;
+}
+#links p{
+  display: flex;
+  justify-content: center; /*左右中央揃え*/
+  align-items: center;     /*上下中央揃え*/
+  width: 100%;
+  text-align: center; /* テキストのセンタリング */
 }
