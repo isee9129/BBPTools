@@ -77,6 +77,7 @@ const greatElm = document.getElementById('great');
 
 function setGuitarChords(jsonElm){
   CHORDS = jsonElm;
+  update()
 }
 
 // 画面更新

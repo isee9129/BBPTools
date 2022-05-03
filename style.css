@@ -1,14 +1,45 @@
+:root {
+  --main-width: 500px;
+  --inTone-bordercolor: rgb(13, 13, 84);
+  --outTone-bordercolor: rgb(71, 0, 0);
+}
+
+@media (min-width: 600px){
+  :root {
+    --main-width: 600px;
+  }
+}
+
+@media (min-width: 700px){
+  :root {
+    --main-width: 700px;
+  }
+}
+
+@media (min-width: 800px){
+  :root {
+    --main-width: 800px;
+  }
+}
+
+@media (min-width: 900px){
+  :root {
+    --main-width: 900px;
+  }
+}
+
 html{
  overflow-y: scroll;
 }
 
 body{
-  width: 720px;
+  width: var(--main-width);
   margin: 0 auto;
 }
 
 h1{
   text-align: center;
+  font-size: calc(var(--main-width) * 0.04);
 }
 
 /* フォント設定 */
@@ -17,18 +48,24 @@ label, td{
 }
 
 fieldset{
-  width: 100%;
-  margin: 20px 0 5px;
-  /* text-align: center; */
+  width: calc(98% - 2px);
+  border: 1px solid;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin: 2% 0 1%;
 }
 
 legend{
+  font-size: calc(var(--main-width) * 0.02);
   font-weight: bold;
 }
 
 /* 行の高さ設定 */
 .inputRow{
-  height: 60px; /* ラベルの高さを指定する */
+  display: flex;
+  justify-content: center; /*左右中央揃え*/
+  align-items: center;     /*上下中央揃え*/
+  margin: 0.5% auto;
 }
 
 /* チェックボックスまわりの設定 ここから */
@@ -40,13 +77,16 @@ legend{
 
 /* ラベルの共通書式設定 */
 .inputRow label {
-  display: block; /* ブロックレベル要素化 */
+  display: flex;
+  justify-content: center; /*左右中央揃え*/
+  align-items: center;     /*上下中央揃え*/
   float: left; /* 要素の左寄せ・回り込み */
   margin: 2px; /* ラベル外側の余白 */
-  width: 46px; /* ラベルの横幅 */
-  height: 44px; /* ラベルの高さ */
+  width: 8%; /* ラベルの横幅 */
+  height: calc(var(--main-width) * 0.05); /* ラベルの高さ */
   text-align: center; /* テキストのセンタリング */
-  line-height: 45px; /* 行の高さ */
+  font-size: calc(var(--main-width) * 0.025);
+  vertical-align: middle;
 }
 .inputRow label.oct{
   line-height: 49px; /* 行の高さ */
@@ -57,12 +97,6 @@ legend{
 }
 
 /* 黒鍵or白鍵 音域内外 で色を変える */
-.inputRow label.outTone{
-  border: 2px solid rgb(71, 0, 0);/* ラベルの境界線を実線で */
-}
-.inputRow label.inTone{
-  border: 2px solid rgb(26, 84, 0);/* ラベルの境界線を実線で */
-}
 .inputRow label.blackTone{
   color: rgb(255, 255, 255);
 }
@@ -70,16 +104,20 @@ legend{
   color: rgb(0, 0, 0);
 }
 .inputRow label.outTone.whiteTone{  /* 範囲外・白 */
-  background-color: rgb(160, 160, 160);
+  background-color: rgb(160, 150, 150);
+  border: 2px solid var(--outTone-bordercolor);
 }
 .inputRow label.outTone.blackTone{  /* 範囲外・黒 */
-  background-color: rgb(96, 96, 96);
+  background-color: rgb(106, 96, 96);
+  border: 2px solid var(--outTone-bordercolor);
 }
 .inputRow label.inTone.whiteTone{  /* 範囲内・白 */
   background-color: rgb(255, 255, 255);
+  border: 2px solid var(--inTone-bordercolor);
 }
 .inputRow label.inTone.blackTone{  /* 範囲内・黒 */
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(33, 36, 40);
+  border: 2px solid var(--inTone-bordercolor);
 }
 
 /* 選択されてるときの挙動 */
@@ -100,7 +138,7 @@ legend{
 
 /* タイトル */
 caption{
-  font-size: large;
+  font-size: calc(var(--main-width) * 0.025);
   font-weight: bold;
   margin: 20px auto 5px;
 }
@@ -109,6 +147,7 @@ caption{
 table{
   width: 100%;
   text-align: center;
+  font-size: calc(var(--main-width) * 0.02);
 }
 
 /* 行 */
