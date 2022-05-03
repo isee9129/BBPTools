@@ -160,26 +160,6 @@ th, td{
   padding: calc(var(--main-width) * 0.005);
 }
 
-th.chordname{
-  width: calc(var(--main-width) * 0.25);
-}
-th.chordno{
-  width: calc(var(--main-width) * 0.1);
-}
-th.chordtones{
-  width: calc(var(--main-width) * 0.5);
-}
-
-td.chordroot{
-  text-align: right;
-    width: calc(var(--main-width) * 0.12);
-}
-td.chordname{
-  text-align: left;
-    width: calc(var(--main-width) * 0.13);
-}
-
-
 /* 一致 */
 .best{
   background-color: rgb(216, 242, 85);
