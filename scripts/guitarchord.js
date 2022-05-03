@@ -46,15 +46,15 @@ for(let oct = 1; oct <= 7; oct++){
     labelElm.htmlFor = no;
     labels.push(labelElm);
     // チェックボックス
-    const inputElm = document.createElement('input');
-    inputElm.type = 'checkbox';
-    inputElm.id = no;
-    inputElm.className = 'onKeyBox' + key;
-    inputElm.checked = false;
-    inputElm.addEventListener('click', update);
-    checkboxes.push(inputElm);
+    const checkElm = document.createElement('input');
+    checkElm.type = 'checkbox';
+    checkElm.id = no;
+    checkElm.className = 'onKeyBox' + key;
+    checkElm.checked = false;
+    checkElm.addEventListener('click', update);
+    checkboxes.push(checkElm);
     // 追加！
-    octElm.appendChild(inputElm);
+    octElm.appendChild(checkElm);
     octElm.appendChild(labelElm);
   }
   inputElm.appendChild(octElm);
@@ -90,7 +90,6 @@ function update(){
   }
   for(let i = 0; i < 84; i++){
     labels[i].innerText = TONES[i%12][onFlat];
-    // labels[i].appendChild(checkboxes[i]); // なんでこれやらなあかんの
   }
   // ギタコ検索
   // ONな音を取得
@@ -172,13 +171,16 @@ function drawResult(chord, elem, capt){
 
   const header_name = document.createElement('th');
   header_name.innerText = 'コード名';
+  header_name.className = 'chordname';
   header.appendChild(header_name);
   const header_no = document.createElement('th');
   header_no.innerText = '番号';
+  header_no.className = 'chordno';
   header.appendChild(header_no);
   const header_tone = document.createElement('th');
   header_tone.setAttribute('colspan', '6');
   header_tone.innerText = '構成音';
+  header_tone.className = 'chordtones';
   header.appendChild(header_tone);
 
   table.appendChild(header);

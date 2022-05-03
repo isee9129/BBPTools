@@ -93,7 +93,6 @@ legend{
   height: calc(var(--main-width) * 0.05); /* ラベルの高さ */
   text-align: center; /* テキストのセンタリング */
   font-size: calc(var(--main-width) * 0.025);
-  vertical-align: middle;
 }
 .inputRow label.oct{
   line-height: calc(var(--main-width) * 0.05); /* 行の高さ */
@@ -128,9 +127,13 @@ legend{
 }
 
 /* 選択されてるときの挙動 */
-.inputRow input[type=checkbox]:checked + label {
+.inputRow input[type=checkbox]:checked + label{
   background-color: rgb(255, 255, 128); /* ON時の背景色 */
   color: rgb(0, 0, 0);  /* ON時の文字色 */
+}
+.inputRow input[type=checkbox]:checked + label .blacktone{
+  background-color: rgb(128, 128, 0); /* ON時の背景色 */
+  color: rgb(255, 255, 255);  /* ON時の文字色 */
 }
 
 /* マウスON時の挙動 */
@@ -162,9 +165,9 @@ caption{
 
 /* 本体 */
 table{
-  width: 100%;
   text-align: center;
   font-size: calc(var(--main-width) * 0.02);
+  margin: auto;
 }
 
 /* 行 */
@@ -175,6 +178,16 @@ tr{
 /* ます */
 th, td{
   padding: calc(var(--main-width) * 0.005);
+}
+
+th.chordname{
+  width: calc(var(--main-width) * 0.2);
+}
+th.chordno{
+  width: calc(var(--main-width) * 0.1);
+}
+th.chordtones{
+  width: calc(var(--main-width) * 0.5);
 }
 
 /* オク違い */
