@@ -7,6 +7,7 @@ const TONECLASS = ['ng', 'good', 'best'];
 let labels = [];
 let checkboxes = [];
 let onFlat = 0
+let goodChord = {'best':[], 'good':[]};
 
 // ピアコ構成音取得
 const url = 'https://isee9129.github.io/BBPTools/scripts/pianochord-plus.json';
@@ -52,7 +53,7 @@ for(let oct = 1; oct <= 7; oct++){
     checkElm.id = no;
     checkElm.className = 'onKeyBox' + key;
     checkElm.checked = false;
-    checkElm.addEventListener('click', update);
+    // checkElm.addEventListener('click', update);
     checkboxes.push(checkElm);
     // 追加！
     octElm.appendChild(checkElm);
@@ -60,6 +61,12 @@ for(let oct = 1; oct <= 7; oct++){
   }
   inputElm.appendChild(octElm);
 }
+
+// 検索ボタン
+const searchButton = document.getElementById('searchButton');
+searchButton.addEventListener('click', search);
+
+// リセットボタン
 const resetButton = document.getElementById('resetToneButton');
 resetButton.addEventListener('click', resetTone);
 
@@ -95,6 +102,13 @@ function update(){
   for(let i = 0; i < 84; i++){
     labels[i].innerText = TONES[i%12][onFlat];
   }
+  // search();
+  // 結果の表示
+  drawResult(goodChord['best'], bestElm, '一致するコード');
+  drawResult(goodChord['good'], greatElm, '近いコード');
+}
+
+function search(){
   // ギタコ検索
   // ONな音を取得
   let onTone = [];
@@ -104,10 +118,9 @@ function update(){
     }
   }
   // いい感じのコードを検索
-  const goodChord = searchChord(onTone);
-  // 結果の表示
-  drawResult(goodChord['best'], bestElm, '一致するコード');
-  drawResult(goodChord['good'], greatElm, '近いコード');
+  goodChord = searchChord(onTone);
+
+  update();
 }
 
 // いい感じのコードを検索
@@ -166,7 +179,7 @@ function searchChord(onTone){
               }
             }
             if(count === onTone.length || count === tones.length){
-              score -= (tones.length - count)*10;
+              score -= (tones.length - count)*100;
               res['good'].push({'root':root,
                                 'name':parseInt(name),
                                 'count':parseInt(tonecount),
@@ -311,6 +324,7 @@ function resetTone(){
   for(let i = 0; i < checkboxes.length; i++){
     checkboxes[i].checked = false;
   }
+  goodChord = {'best':[], 'good':[]};
   update();
 }
 
