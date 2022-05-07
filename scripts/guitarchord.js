@@ -112,7 +112,8 @@ function update(){
 // いい感じのコードを検索
 // in: 音階の配列
 // out: {'best':[完全一致するコード], 'good':[構成音は合ってるコード]}
-//      各コードは {name:[ルート,コード名], no:番号, tone:[構成音], dle:[一致度]}
+//      各コードは {root:ルート, name:コード名, no:番号
+//                , tone:[構成音], dle:[一致度], score:得点}
 //      一致度: 0:不一致, 1:オク違い, 2:一致
 function searchChord(onTone){
   let res = {'best':[], 'good':[]};
@@ -121,6 +122,7 @@ function searchChord(onTone){
     for(let name in CHORDS[root]){
       for(let chordNo in CHORDS[root][name]){
         const tones = CHORDS[root][name][chordNo];
+        let score = 0;
         let count = 0;
         let used = [];
         for(let i = 0; i < onTone.length; i++) used.push(false);
@@ -131,14 +133,15 @@ function searchChord(onTone){
             if(dle[i] === 0 && tones[i] == onTone[j]){
               used[j] = true;
               dle[i] = 2;
+              score += 10;
               count++;
               break;
             }
           }
         }
         if(count === onTone.length){
-          res['best'].push({'root':TONES[root][onFlat], 'name':parseInt(name), 'no':1 + parseInt(chordNo),
-                       'tone':tones, 'dle':dle});
+          res['best'].push({'root':TONES[root][onFlat], 'name':name, 'no':1 + parseInt(chordNo),
+                       'tone':tones, 'dle':dle, 'score':score});
           continue;
         }
         // 構成音一致
@@ -147,19 +150,42 @@ function searchChord(onTone){
           for(let i = 0; i < 6; i++){
             if(dle[i] === 0 && (tones[i] - onTone[j]) % 12 === 0){
               dle[i] = 1;
+              score += 1;
               count++;
               break;
             }
           }
         }
         if(count === onTone.length){
-          res['good'].push({'root':TONES[root][onFlat], 'name':parseInt(name), 'no':1 + parseInt(chordNo),
-                       'tone':tones, 'dle':dle});
+          res['good'].push({'root':TONES[root][onFlat], 'name':name, 'no':1 + parseInt(chordNo),
+                       'tone':tones, 'dle':dle, 'score':score});
           continue;
         }
       }
     }
   }
+  res['best'].sort(function(a, b){
+                     if(a['score'] > b['score']) return -1;
+                     if(a['score'] < b['score']) return 1;
+                     if(a['root'] < b['root']) return -1;
+                     if(a['root'] > b['root']) return 1;
+                     if(a['name'] < b['name']) return -1;
+                     if(a['name'] > b['name']) return 1;
+                     if(a['no'] < b['no']) return -1;
+                     if(a['no'] > b['no']) return 1;
+                     return 0
+  });
+  res['good'].sort(function(a, b){
+                     if(a['score'] > b['score']) return -1;
+                     if(a['score'] < b['score']) return 1;
+                     if(a['root'] < b['root']) return -1;
+                     if(a['root'] > b['root']) return 1;
+                     if(a['name'] < b['name']) return -1;
+                     if(a['name'] > b['name']) return 1;
+                     if(a['no'] < b['no']) return -1;
+                     if(a['no'] > b['no']) return 1;
+                     return 0
+  });
   return res;
 }
 

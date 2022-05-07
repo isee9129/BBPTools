@@ -33,11 +33,11 @@ for(let oct = 1; oct <= 7; oct++){
     // ラベル
     const labelElm = document.createElement('label');
     labelElm.className = 'onKey';
-    // if(no <= -1 || no >= 67){
-    //   labelElm.className += ' outTone';
-    // }else{
+    if(no <= -1 || no >= 71){
+      labelElm.className += ' outTone';
+    }else{
       labelElm.className += ' inTone';
-    // }
+    }
     if(key == 1 || key == 3 || key == 6 || key == 8 || key == 10 ){
       labelElm.className += ' blackTone';
     }else{
@@ -80,7 +80,7 @@ const greatElm = document.getElementById('great');
 
 function setChords(jsonElm){
   CHORDS = jsonElm;
-  console.log(CHORDS);
+  // console.log(CHORDS);
   update()
 }
 
@@ -113,8 +113,8 @@ function update(){
 // いい感じのコードを検索
 // in: 音階の配列
 // out: {'best':[完全一致するコード], 'good':[構成音は合ってるコード]}
-//      各コードは {name:[ルート,コード名], count:音数, open:開閉,
-//                no:番号, tone:[構成音], dle:[一致度]}
+//      各コードは {root:ルート, name:コード名, count:音数, open:開閉,
+//                no:番号, tone:[構成音], dle:[一致度], score:得点}
 //      一致度: 0:不一致, 1:オク違い, 2:一致
 function searchChord(onTone){
   let res = {'best':[], 'good':[]};
@@ -125,6 +125,7 @@ function searchChord(onTone){
         for(let open in CHORDS[root][name][tonecount]){
           for(let chordNo in CHORDS[root][name][tonecount][open]){
             const tones = CHORDS[root][name][tonecount][open][chordNo];
+            let score = 0;
             let count = 0;
             let used = [];
             for(let i = 0; i < onTone.length; i++) used.push(false);
@@ -136,18 +137,20 @@ function searchChord(onTone){
                   used[j] = true;
                   dle[i] = 2;
                   count++;
+                  score += 10;
                   break;
                 }
               }
             }
-            if(count === onTone.length){
-              res['best'].push({'root':TONES[root][onFlat],
+            if(count === onTone.length && count === tones.length){
+              res['best'].push({'root':root,
                                 'name':name,
                                 'count':parseInt(tonecount),
                                 'open':open,
                                 'no':parseInt(chordNo),
                                 'tone':tones,
-                                'dle':dle});
+                                'dle':dle,
+                                'score':score});
               continue;
             }
             // 構成音一致
@@ -157,18 +160,21 @@ function searchChord(onTone){
                 if(dle[i] === 0 && (tones[i] - onTone[j]) % 12 === 0){
                   dle[i] = 1;
                   count++;
+                  score -= 1;
                   break;
                 }
               }
             }
-            if(count === onTone.length){
-              res['good'].push({'root':TONES[root][onFlat],
+            if(count === onTone.length || count === tones.length){
+              score -= (tones.length - count)*10;
+              res['good'].push({'root':root,
                                 'name':parseInt(name),
                                 'count':parseInt(tonecount),
                                 'open':open,
                                 'no':parseInt(chordNo),
                                 'tone':tones,
-                                'dle':dle});
+                                'dle':dle,
+                                'score':score});
               continue;
             }
           }
@@ -176,6 +182,36 @@ function searchChord(onTone){
       }
     }
   }
+  res['best'].sort(function(a, b){
+                     if(a['score'] > b['score']) return -1;
+                     if(a['score'] < b['score']) return 1;
+                     if(a['root'] < b['root']) return -1;
+                     if(a['root'] > b['root']) return 1;
+                     if(a['name'] < b['name']) return -1;
+                     if(a['name'] > b['name']) return 1;
+                     if(a['count'] < b['count']) return -1;
+                     if(a['count'] > b['count']) return 1;
+                     if(a['open'] < b['open']) return -1;
+                     if(a['open'] > b['open']) return 1;
+                     if(a['no'] < b['no']) return -1;
+                     if(a['no'] > b['no']) return 1;
+                     return 0
+  });
+  res['good'].sort(function(a, b){
+                     if(a['score'] > b['score']) return -1;
+                     if(a['score'] < b['score']) return 1;
+                     if(a['root'] < b['root']) return -1;
+                     if(a['root'] > b['root']) return 1;
+                     if(a['name'] < b['name']) return -1;
+                     if(a['name'] > b['name']) return 1;
+                     if(a['count'] < b['count']) return -1;
+                     if(a['count'] > b['count']) return 1;
+                     if(a['open'] < b['open']) return -1;
+                     if(a['open'] > b['open']) return 1;
+                     if(a['no'] < b['no']) return -1;
+                     if(a['no'] > b['no']) return 1;
+                     return 0
+  });
   return res;
 }
 
@@ -220,7 +256,7 @@ function drawResult(chord, elem, capt){
 
     const row_root = document.createElement('td');
     row_root.className = 'chordroot';
-    row_root.innerText = c['root'];
+    row_root.innerText = TONES[c['root']][onFlat];
     row.appendChild(row_root);
     const row_name = document.createElement('td');
     row_name.className = 'chordname';
@@ -228,11 +264,19 @@ function drawResult(chord, elem, capt){
     row.appendChild(row_name);
     const row_count = document.createElement('td');
     row_count.className = 'chordcount';
-    row_count.innerText = c['count'];
+    // if(c['count'] == 3){
+    //   row_count.innerText = ' ';
+    // }else{
+      row_count.innerText = c['count'];
+    // }
     row.appendChild(row_count);
     const row_open = document.createElement('td');
     row_open.className = 'chordopen';
-    row_open.innerText = c['open'];
+    if(c['open'] == '密'){
+      row_open.innerText = '　';
+    }else{
+      row_open.innerText = c['open'];
+    }
     row.appendChild(row_open);
     const row_no = document.createElement('td');
     row_no.className = 'chordno';
@@ -259,7 +303,7 @@ function drawResult(chord, elem, capt){
 
 // 音階の数値を国際表記に直す
 function toneNum2Name(tonenum){
-  return `${TONES[tonenum % 12][onFlat]}${Math.floor(tonenum / 12) + 3}`
+  return `${TONES[tonenum % 12][onFlat]}${Math.floor(tonenum / 12) + 1}`
 }
 
 // リセットボタン

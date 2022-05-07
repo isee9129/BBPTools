@@ -172,7 +172,8 @@ function update(){
 // in: onlist: どの音を含みたいか boolean型の12個の配列
 //     okTone: 含んでもいいやつ
 // out: [ok:[完全一致するコード], near:[部分一致するコード]]
-//      各コードは {name:[ルート,コード名], tones:[構成音], fittone:[一致してる音]}
+//      各コードは {name:[ルート,コード名], tones:[構成音],
+//                fittone:[一致してる音], score:得点}
 function searchChord(onlist, okTone){
   let tonecount = 0; // 構成音の数
   for(let no = 0; no < onlist.length; no++){
@@ -212,9 +213,9 @@ function searchChord(onlist, okTone){
           isfittone.push(false);
         }
         if(nearcount !== 0 || fitcount !== tonecount){
-          nearlist.push({'name':[chroot,chname], 'tones':chtonename, 'isfit':isfittone});
+          nearlist.push({'name':[chroot,chname], 'tones':chtonename, 'isfit':isfittone, 'score':fitcount});
         }else{
-          oklist.push({'name':[chroot,chname], 'tones':chtonename, 'isfit':isfittone})
+          oklist.push({'name':[chroot,chname], 'tones':chtonename, 'isfit':isfittone, 'score':fitcount})
         }
       }
     }
