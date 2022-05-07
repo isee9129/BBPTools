@@ -1,4 +1,4 @@
-const LINK = [['./pianochord.html', 'ピアノコード検索'], ['./guitarchord.html', 'ギターコード検索']]
+const LINK = [['./pianochord.html', 'ピアノコード検索'], ['./pianochord-plus.html', 'ピアノコード検索(詳細)'], ['./guitarchord.html', 'ギターコード検索']]
 
 const footer = document.getElementById('footer');
 const hrline = document.createElement('hr');

@@ -1,4 +1,5 @@
 var CHORDS = 'hoge';
+const CHORDNAMES = ['', 'm', '7', 'M7', 'm7', 'dim7', 'm7♭5', 'aug', 'sus4', '7sus4', '6', 'add9']
 const TONES = [['Ｃ', 'Ｃ'], ['Ｃ♯', 'Ｄ♭'], ['Ｄ', 'Ｄ'], ['Ｄ♯', 'Ｅ♭'],
                ['Ｅ', 'Ｅ'], ['Ｆ', 'Ｆ'], ['Ｆ♯', 'Ｇ♭'], ['Ｇ', 'Ｇ'],
                ['Ｇ♯', 'Ａ♭'], ['Ａ', 'Ａ'], ['Ａ♯', 'Ｂ♭'], ['Ｂ', 'Ｂ']];
@@ -136,7 +137,7 @@ function searchChord(onTone){
           }
         }
         if(count === onTone.length){
-          res['best'].push({'name':[TONES[root][onFlat],name], 'no':1 + parseInt(chordNo),
+          res['best'].push({'root':TONES[root][onFlat], 'name':parseInt(name), 'no':1 + parseInt(chordNo),
                        'tone':tones, 'dle':dle});
           continue;
         }
@@ -152,7 +153,7 @@ function searchChord(onTone){
           }
         }
         if(count === onTone.length){
-          res['good'].push({'name':[TONES[root][onFlat],name], 'no':1 + parseInt(chordNo),
+          res['good'].push({'root':TONES[root][onFlat], 'name':parseInt(name), 'no':1 + parseInt(chordNo),
                        'tone':tones, 'dle':dle});
           continue;
         }
@@ -195,11 +196,11 @@ function drawResult(chord, elem, capt){
 
     const row_root = document.createElement('td');
     row_root.className = 'chordroot';
-    row_root.innerText = c['name'][0];
+    row_root.innerText = c['root'];
     row.appendChild(row_root);
     const row_name = document.createElement('td');
     row_name.className = 'chordname';
-    row_name.innerText = c['name'][1];
+    row_name.innerText = CHORDNAMES[c['name']];
     row.appendChild(row_name);
     const row_no = document.createElement('td');
     row_no.className = 'chordno';

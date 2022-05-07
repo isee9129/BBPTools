@@ -1,25 +1,28 @@
 
 th.chordname{
-  width: calc(var(--main-width) * 0.4);
+  width: calc(var(--main-width) * 0.12);
+}
+th.chordcount{
+  width: calc(var(--main-width) * 0.07);
+}
+th.chordopen{
+  width: calc(var(--main-width) * 0.07);
 }
 th.chordno{
-  width: calc(var(--main-width) * 0.1);
+  width: calc(var(--main-width) * 0.07);
 }
 th.chordtones{
-  width: calc(var(--main-width) * 0.36);
+  width: calc(var(--main-width) * 0.32);
 }
 
 td{
-  width: calc(var(--main-width) * 0.06);
+  width: calc(var(--main-width) * 0.08);
 }
 td.chordroot{
   text-align: right;
-  width: calc(var(--main-width) * 0.2);
+  width: calc(var(--main-width) * 0.06);
 }
 td.chordname{
   text-align: left;
-  width: calc(var(--main-width) * 0.2);
-}
-td.chordno{
-  width: calc(var(--main-width) * 0.1);
+  width: calc(var(--main-width) * 0.06);
 }
