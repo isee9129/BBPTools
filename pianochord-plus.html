@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang='ja'>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ギターコード検索</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/guitarchord.css">
+  </head>
+  <body>
+    <h1>ギターコード検索</h1>
+    <div id="select">
+      <fieldset id="tonearea">
+        <legend>構成音</legend>
+        <div id="tones"></div>
+        <div id="resettone">
+          <button id="resetToneButton">リセット</button>
+        </div>
+      </fieldset>
+      <fieldset id="acciarea">
+        <legend>記号</legend>
+        <label><input type="radio" id="sharp" name="acci">♯</label>
+        <label><input type="radio" id="flat" name="acci">♭</label>
+      </fieldset>
+    </div>
+    <div id="perfect"></div>
+    <div id="great"></div>
+    <!-- <div id="good"></div> -->
+    <div id='footer'></div>
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/guitarchord.js"></script>
+  </body>
+</html>
