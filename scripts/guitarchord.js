@@ -33,7 +33,7 @@ for(let oct = 1; oct <= 7; oct++){
     // ラベル
     const labelElm = document.createElement('label');
     labelElm.className = 'onKey';
-    if(no <= 27 || no >= 67){
+    if(no <= 27 || no >= 68){
       labelElm.className += ' outTone';
     }else{
       labelElm.className += ' inTone';
